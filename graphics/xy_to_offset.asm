@@ -1,3 +1,5 @@
+%include "asmlib/graphics/get_bytes_per_pixel.asm"
+
 xy_to_offset:
     mov rax, rsi
     xor rbx, rbx
@@ -6,10 +8,7 @@ xy_to_offset:
     add rax, rdi
     push rax
 
-    xor rax, rax
-    mov al, byte [VBEModeInfoBlock.BitsPerPixel]
-    mov rbx, 8
-    div rbx
+    call get_bytes_per_pixel
     mov rbx, rax
 
     pop rax
