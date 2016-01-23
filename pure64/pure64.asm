@@ -1,3 +1,6 @@
+; This uses code from http://github.com/ReturnInfinity/Pure64
+; See LICENSE.txt
+;
 ; Memory locations
 E820Map:                                        equ 0x0000000000004000
 InfoMap:                                        equ 0x0000000000005000
@@ -7,14 +10,14 @@ ahci_cmdlist:                                   equ 0x0000000000070000  ; 4096 b
 ahci_cmdtable:                                  equ 0x0000000000072000  ; 57344 bytes   0x072000 -> 0x07FFFF
 
 ; DQ - Starting at offset 0, increments by 0x8
-os_ACPITableAddress:    equ SystemVariables + 0x00
-screen_cursor_offset:   equ SystemVariables + 0x08
-os_LocalX2APICAddress:  equ SystemVariables + 0x10
-os_Counter_Timer:   equ SystemVariables + 0x18
-os_Counter_RTC:     equ SystemVariables + 0x20
-os_LocalAPICAddress:    equ SystemVariables + 0x28
-os_IOAPICAddress:   equ SystemVariables + 0x30
-os_HPETAddress:     equ SystemVariables + 0x38
+os_ACPITableAddress:                            equ SystemVariables + 0x00
+screen_cursor_offset:                           equ SystemVariables + 0x08
+os_LocalX2APICAddress:                          equ SystemVariables + 0x10
+os_Counter_Timer:                               equ SystemVariables + 0x18
+os_Counter_RTC:                                 equ SystemVariables + 0x20
+os_LocalAPICAddress:                            equ SystemVariables + 0x28
+os_IOAPICAddress:                               equ SystemVariables + 0x30
+os_HPETAddress:                                 equ SystemVariables + 0x38
 
 ; DD - Starting at offset 128, increments by 4
 os_BSP:         equ SystemVariables + 128
