@@ -4,6 +4,9 @@
 clear_screen:
     push rdi
 
+    xor rdi, rdi
+    mov edi, dword [VBEModeInfoBlock.PhysBasePtr]
+
     call get_screen_size
     mov rcx, rax
 
