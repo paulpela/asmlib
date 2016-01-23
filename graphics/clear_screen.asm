@@ -1,16 +1,10 @@
+%include "asmlib/graphics/get_screen_size.asm"
+
 ; rdi: color 0x00rrggbb
 clear_screen:
     push rdi
 
-    xor rdi, rdi
-    mov edi, dword [VBEModeInfoBlock.PhysBasePtr]
-
-    xor rax, rax
-    xor rbx, rbx
-    mov ax, word [VBEModeInfoBlock.XResolution]
-    mov bx, word [VBEModeInfoBlock.YResolution]
-    mul rbx
-
+    call get_screen_size
     mov rcx, rax
 
 ;    xor rdx, rdx
