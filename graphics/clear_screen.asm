@@ -3,7 +3,7 @@ clear_screen:
     mov rax, rdi
     mov rbx, rdi
     shr rbx, 8
-    mov rdi, [video_mem]
+    mov rdi, [p64_video_mem]
     mov rcx, [screen_size]
 .clear:
     mov byte [rdi], al
