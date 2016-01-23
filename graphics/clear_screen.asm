@@ -1,10 +1,21 @@
 ; rdi: color 0x00rrggbb
 clear_screen:
-    mov rax, rdi
-    mov rbx, rdi
+    push rdi
+
+    xor rdi, rdi
+    mov edi, dword [VBEModeInfoBlock.PhysBasePtr]
+
+    xor rax, rax
+    xor rbx, rbx
+    mov ax, word [VBEModeInfoBlock.XResolution]
+    mov bx, word [VBEModeInfoBlock.YResolution]
+    mul rbx
+
+    mov rcx, rax
+
+    pop rax
+    mov rbx, rax
     shr rbx, 8
-    mov rdi, [p64_video_mem]
-    mov rcx, [screen_size]
 .clear:
     mov byte [rdi], al
     mov word [rdi+1], bx
