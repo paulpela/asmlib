@@ -1,4 +1,8 @@
-%include "asmlib/graphics/xy_to_offset.asm"
+%define ASMLIB_XY_TO_ADDR
+
+%ifndef ASMLIB_XY_TO_OFFSET
+    %include "asmlib/graphics/xy_to_offset.asm"
+%endif
 
 
 ; rdi - x

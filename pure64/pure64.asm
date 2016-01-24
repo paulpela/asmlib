@@ -1,3 +1,5 @@
+%define ASMLIB_PURE64
+
 ; This uses code from http://github.com/ReturnInfinity/Pure64
 ; See LICENSE.txt
 ;

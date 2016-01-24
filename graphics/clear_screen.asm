@@ -1,4 +1,8 @@
-%include "asmlib/graphics/get_screen_size.asm"
+%define ASMLIB_CLEAR_SCREEN
+
+%ifndef ASMLIB_GET_SCREEN_SIZE
+    %include "asmlib/graphics/get_screen_size.asm"
+%endif
 
 ; rdi: color 0x00rrggbb
 clear_screen:

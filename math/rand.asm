@@ -1,3 +1,5 @@
+%define ASMLIB_GET_RND
+
 rnd_a: dq 0xd871f402
 rnd_b: dq 0x130b7dcb
 rnd_c: dq 0x10a813a1

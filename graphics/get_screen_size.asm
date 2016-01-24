@@ -1,3 +1,5 @@
+%define ASMLIB_GET_SCREEN_SIZE
+
 get_screen_size:
     xor rax, rax
     xor rbx, rbx

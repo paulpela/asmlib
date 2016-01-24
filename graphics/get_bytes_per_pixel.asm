@@ -1,3 +1,5 @@
+%define ASMLIB_GET_BYTES_PER_PIXEL
+
 get_bytes_per_pixel:
     xor rax, rax
     xor rbx, rbx
