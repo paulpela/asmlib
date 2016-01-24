@@ -6,10 +6,12 @@
 
 ; rdi - x
 ; rsi - y
-; rdx - color
+; dl - RR
+; cl - GG
+; r8b - BB
 put_pixel:
     call xy_to_addr
-    mov byte [rax], dl
-    shr rdx, 8
-    mov word [rax+1], dx
+    mov byte [rax+2], dl
+    mov byte [rax+1], cl
+    mov byte [rax], r8b
     ret

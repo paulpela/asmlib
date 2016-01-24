@@ -4,27 +4,34 @@
     %include "asmlib/graphics/get_screen_size.asm"
 %endif
 
-; rdi: color 0x00rrggbb
+%ifndef ASMLIB_GET_BYTES_PER_PIXEL
+    %include "asmlib/graphics/get_bytes_per_pixel.asm"
+%endif
+
+; rdi: RR
+; rsi: GG
+; rdi: BB
 clear_screen:
     push rdi
-
-    xor rdi, rdi
-    mov edi, dword [VBEModeInfoBlock.PhysBasePtr]
+    push rsi
+    push rdx
 
     call get_screen_size
     mov rcx, rax
 
-;    xor rdx, rdx
-;    mov dl, byte [VBEModeInfoBlock.BitsPerPixel] ; not working for some reason
-;    shr dl, 8
-    mov rdx, 3 ; had to hardcode then...
+    call get_bytes_per_pixel
+    mov rdx, rax
 
+    xor rdi, rdi
+    mov edi, dword [VBEModeInfoBlock.PhysBasePtr]
+
+    pop r8
+    pop rbx
     pop rax
-    mov rbx, rax
-    shr rbx, 8
 .clear:
     mov byte [rdi], al
-    mov word [rdi+1], bx
+    mov byte [rdi+1], bl
+    mov byte [rdi+2], r8b
     add rdi, rdx
     loop .clear
 

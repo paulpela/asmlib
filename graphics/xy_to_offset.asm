@@ -5,6 +5,11 @@
 %endif
 
 xy_to_offset:
+    push rbx
+    push rcx
+    push rdx
+    push r8
+
     mov rax, rsi
     xor rbx, rbx
     mov bx, word [VBEModeInfoBlock.XResolution]
@@ -17,4 +22,9 @@ xy_to_offset:
 
     pop rax
     mul rbx
+
+    pop r8
+    pop rdx
+    pop rcx
+    pop rbx
     ret ; rax holds the offset
