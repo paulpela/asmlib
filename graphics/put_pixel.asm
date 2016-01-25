@@ -14,16 +14,18 @@ put_pixel:
     push r8
     push rcx
     push rdx
+    push rdi
 
     call point_to_addr
 
-    mov r8b, byte [rsi+pixel.b]
-    mov cl, byte [rsi+pixel.g]
-    mov dl, byte [rsi+pixel.r]
+    mov r8b, byte [rsi+color.b]
+    mov cl, byte [rsi+color.g]
+    mov dl, byte [rsi+color.r]
     mov byte [rax], r8b
     mov byte [rax+1], cl
     mov byte [rax+2], dl
 
+    pop rdi
     pop rdx
     pop rcx
     pop r8

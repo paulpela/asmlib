@@ -1,31 +1,36 @@
 %define ASMLIB_DRAW_RECT
 
-%ifndef ASMLIB_XY_TO_ADDR
-    %include "asmlib/graphics/xy_to_addr.asm"
+%ifndef ASMLIB_GRAPHICS_DATA_TYPES
+    %include "asmlib/graphics/data_types.asm"
 %endif
 
-; rdi - x
-; rsi - y
-; rdx - length
-; rcx - height
-; r8 - RR
-; r9 - GG
-; r10 - BB
-; TODO: complete this
+%ifndef ASMLIB_DRAW_HLINE
+    %include "asmlib/graphics/draw_hline.asm"
+%endif
+
+; rdi: *struc point origin
+; rsi: *struc color
+; rdx: length
+; rcx: height
 draw_rect:
-    call xy_to_addr
-    mov r12, rax
-.rows:
+    copy_point rdi, _rect_origin
+    mov rdi, _rect_origin
+
+.draw_lines:
     push rcx
     mov rcx, rdx
-    mov rax, r12
-.row:
-    mov byte [rax], r10b
-    mov byte [rax+1], r9b
-    mov byte [rax+2], r8b
-    
-    loop .row
+    call draw_hline
+    inc word [rdi+point.y]
+    push ax
+    mov ax, word [_rect_origin+point.x]
+    mov word [rdi+point.x], ax
+    pop ax
     pop rcx
-    loop .rows
+    loop .draw_lines
 
     ret
+
+_rect_origin: istruc point
+    at point.x,     dw 0
+    at point.y,     dw 0
+iend

@@ -28,11 +28,11 @@ clear_screen:
     mov ebx, dword [VBEModeInfoBlock.PhysBasePtr]
 
 .clear:
-    mov sil, byte [rdi+pixel.b]
+    mov sil, byte [rdi+color.b]
     mov byte [rbx], sil
-    mov sil, byte [rdi+pixel.g]
+    mov sil, byte [rdi+color.g]
     mov byte [rbx+1], sil
-    mov sil, byte [rdi+pixel.r]
+    mov sil, byte [rdi+color.r]
     mov byte [rbx+2], sil
 
     add rbx, rdx
