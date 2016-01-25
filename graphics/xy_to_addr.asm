@@ -4,6 +4,9 @@
     %include "asmlib/graphics/xy_to_offset.asm"
 %endif
 
+%ifndef ASMLIB_OFFSET_TO_ADDR
+    %include "asmlib/graphics/offset_to_addr.asm"
+%endif
 
 ; rdi - x
 ; rsi - y
@@ -14,9 +17,8 @@ xy_to_addr:
     push r8
 
     call xy_to_offset
-    xor rbx, rbx
-    mov ebx, dword [VBEModeInfoBlock.PhysBasePtr]
-    add rax, rbx
+    mov rdi, rax
+    call offset_to_addr
 
     pop r8
     pop rdx
