@@ -12,9 +12,11 @@
 ; rsi - *struct color
 put_pixel:
     push r8
+    push rax
     push rcx
     push rdx
     push rdi
+    push rsi
 
     call point_to_addr
 
@@ -25,8 +27,10 @@ put_pixel:
     mov byte [rax+1], cl
     mov byte [rax+2], dl
 
+    pop rsi
     pop rdi
     pop rdx
     pop rcx
+    pop rax
     pop r8
     ret
