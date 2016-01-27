@@ -26,12 +26,13 @@ save_bg_buffer:
     mul rbx ; rax now holds buffer size in bytes
 
     mov rcx, rax
+    shr rcx, 3
     xor rax, rax
     xor rsi, rsi
     mov esi, dword [VBEModeInfoBlock.PhysBasePtr]
 .copy:
-    lodsb
-    stosb
+    lodsq
+    stosq
     loop .copy
 
     pop rdi
