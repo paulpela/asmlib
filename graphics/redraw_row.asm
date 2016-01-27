@@ -34,7 +34,6 @@ redraw_row:
     add rdi, rax
 
     xor rax, rax
-    shr rcx, 3
 .copy:
     lodsq
     stosq
