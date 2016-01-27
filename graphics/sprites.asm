@@ -17,15 +17,19 @@ draw_sprite:
     push rbx
     push rcx
     push rdx
+    push r13
 
+    mov r13, rsi
     copy_point r8, _sprite_origin
 
 .draw_row:
+
     call sprite_draw_row
-    sub word [_sprite_origin+point.x], rdx
+    sub word [_sprite_origin+point.x], dx
     add word [_sprite_origin+point.y], 1
     loop .draw_row
 
+    pop r13
     pop rdx
     pop rcx
     pop rbx
@@ -43,6 +47,7 @@ sprite_draw_row:
     xor rcx, rcx
     xor rax, rax
     mov rcx, rdx
+    shr rcx, 1
 .loop:
     mov al, byte [rdi]
     add rdi, 1
@@ -59,31 +64,39 @@ sprite_parse_color_data:
     push rax
     push rbx
     push rcx
+    push r13
     push r14
     push rdi
     push rsi
 
+    mov r14, rax
     xor rbx, rbx
     mov rcx, 2
 .loop:
+    xor rbx, rbx
     mov bl, al
     and bl, 0000_1111b
     cmp bl, 0x00
     je .skip
-    mov rdi, qword [rsi+8*bl]
+    push rdi
     push rsi
-    mov rsi, _sprite_origin
+    mov rdi, _sprite_origin
+    mov rsi, [r13+8*rbx]
     call put_pixel
     pop rsi
+    pop rdi
 
 .skip:
     shr al, 4
     add word [_sprite_origin+point.x], 1
     loop .loop
 
+    mov rax, r14
+
     pop rsi
     pop rdi
     pop r14
+    pop r13
     pop rcx
     pop rbx
     pop rax
