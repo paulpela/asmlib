@@ -19,6 +19,7 @@ sprite_draw:
     mov r13, rsi
     copy_point r8, _sprite_origin
 
+    shl rdx, 1
 .draw_row:
 
     call sprite_draw_row

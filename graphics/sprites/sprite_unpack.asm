@@ -25,13 +25,15 @@ sprite_unpack_data:
 .unpack:
     xor rax, rax
     xor rcx, rcx
-    lodsw
-    cmp ax, 0x0000
+    mov cl, byte [rdi]
+    cmp cl, 0x00
     je .end
-    mov cl, ah
-    shr ax, 4
+    inc rdi
+    mov al, byte [rdi]
+    inc rdi
 .write_unpacked:
-    stosb
+    mov byte [rsi], al
+    inc rsi
     loop .write_unpacked
     jmp .unpack
     
@@ -40,15 +42,26 @@ sprite_unpack_data:
 
 sprite_unpack_header:
     push rax
-    push rcx
 
-    xor rax, rax
-    mov ecx, 4
-.loop:
-    lodsb
-    stosb
-    loop .loop
+    mov ax, word [rdi]
+    mov word [rsi], ax
+    add rsi, 2
+    add rdi, 2
+    mov ax, word [rdi]
+    mov word [rsi], ax
+    add rsi, 2
+    add rdi, 2
     
-    pop rcx
     pop rax
     ret
+
+tp: istruc point
+    at point.x,     dw 500
+    at point.y,     dw 500
+iend
+
+tpc: istruc color
+    at color.r,     db 0x00
+    at color.g,     db 0x00
+    at color.b,     db 0x00
+iend
