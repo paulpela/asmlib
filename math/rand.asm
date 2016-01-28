@@ -10,6 +10,8 @@ gen_rnd:
     push rbx
     push rcx
     push rdx
+    push rdi
+    push rsi
 
     rdtsc
     add rax, rdx
@@ -30,6 +32,8 @@ gen_rnd:
     mov qword [rnd_a], rax
     mov qword [rnd_b], rcx
 
+    pop rsi
+    pop rdi
     pop rdx
     pop rcx
     pop rbx
