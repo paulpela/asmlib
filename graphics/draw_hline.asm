@@ -8,6 +8,13 @@
 ; rsi: *struc color
 ; rcx: length
 draw_hline:
+    push rdi
+    push rsi
+    push rcx
+
+    cmp rcx, 0
+    je .skip
+
     copy_point rdi, _hline_origin
 
     mov rdi, _hline_origin
@@ -16,6 +23,10 @@ draw_hline:
     inc word [_hline_origin+point.x]
     loop .draw
 
+.skip:
+    pop rcx
+    pop rsi
+    pop rdi
     ret
     
 
