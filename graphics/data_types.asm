@@ -2,8 +2,8 @@
 %define ASMLIB_GRAPHICS_DATA_TYPES
 
 struc point
-    .x:         resw 1
-    .y:         resw 1
+    .x:         resq 1
+    .y:         resq 1
 endstruc
 
 struc color

@@ -12,12 +12,12 @@ point_to_offset:
     mov bx, word [VBEModeInfoBlock.XResolution]
 
     xor rax, rax
-    mov ax, word [rdi+point.y]
+    mov rax, qword [rdi+point.y]
 
     mul rbx ; rax now holds y*resolution
 
     xor rbx, rbx
-    mov bx, [rdi+point.x]
+    mov rbx, qword [rdi+point.x]
     add rbx, rax ; rbx now holds the pixel number
 
     call get_bytes_per_pixel

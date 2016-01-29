@@ -20,17 +20,17 @@ draw_rect:
     push rcx
     mov rcx, rdx
     call draw_hline
-    inc word [rdi+point.y]
-    push ax
-    mov ax, word [_rect_origin+point.x]
-    mov word [rdi+point.x], ax
-    pop ax
+    inc qword [rdi+point.y]
+    push rax
+    mov rax, qword [_rect_origin+point.x]
+    mov qword [rdi+point.x], rax
+    pop rax
     pop rcx
     loop .draw_lines
 
     ret
 
 _rect_origin: istruc point
-    at point.x,     dw 0
-    at point.y,     dw 0
+    at point.x,     dq 0
+    at point.y,     dq 0
 iend

@@ -55,13 +55,3 @@ sprite_unpack_header:
     pop rax
     ret
 
-tp: istruc point
-    at point.x,     dw 500
-    at point.y,     dw 500
-iend
-
-tpc: istruc color
-    at color.r,     db 0x00
-    at color.g,     db 0x00
-    at color.b,     db 0x00
-iend

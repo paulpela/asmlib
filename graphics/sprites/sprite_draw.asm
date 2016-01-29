@@ -23,8 +23,8 @@ sprite_draw:
 .draw_row:
 
     call sprite_draw_row
-    sub word [_sprite_origin+point.x], dx
-    add word [_sprite_origin+point.y], 1
+    sub qword [_sprite_origin+point.x], rdx
+    add qword [_sprite_origin+point.y], 1
     loop .draw_row
 
     pop r13
@@ -86,7 +86,7 @@ sprite_parse_color_data:
 
 .skip:
     shr al, 4
-    add word [_sprite_origin+point.x], 1
+    add qword [_sprite_origin+point.x], 1
     loop .loop
 
     mov rax, r14
@@ -107,6 +107,6 @@ sprite_parse_color_data:
 ;dq color_3
 
 _sprite_origin: istruc point
-    at point.x,     dw  0
-    at point.y,     dw  0
+    at point.x,     dq  0
+    at point.y,     dq  0
 iend

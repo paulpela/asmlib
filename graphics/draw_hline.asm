@@ -20,7 +20,7 @@ draw_hline:
     mov rdi, _hline_origin
 .draw:
     call put_pixel
-    inc word [_hline_origin+point.x]
+    inc qword [_hline_origin+point.x]
     loop .draw
 
 .skip:
@@ -31,6 +31,6 @@ draw_hline:
     
 
 _hline_origin: istruc point
-    at point.x,     dw 0
-    at point.y,     dw 0
+    at point.x,     dq 0
+    at point.y,     dq 0
 iend

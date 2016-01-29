@@ -2,10 +2,10 @@
     %macro copy_point 2
         push rax 
 
-        mov ax, word [%1+point.x]
-        mov word [%2+point.x], ax
-        mov ax, [%1+point.y]
-        mov word [%2+point.y], ax
+        mov rax, qword [%1+point.x]
+        mov qword [%2+point.x], rax
+        mov rax, [%1+point.y]
+        mov qword [%2+point.y], rax
 
         pop rax
     %endmacro
