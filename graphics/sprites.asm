@@ -3,5 +3,4 @@ USE64
 
 %include "asmlib/graphics/sprites/sprite_draw.asm"
 %include "asmlib/graphics/sprites/sprite_unpack.asm"
-%include "asmlib/graphics/sprites/place_tile_on_screen.asm"
 
