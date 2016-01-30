@@ -1,5 +1,5 @@
 USE64
-%define ASMLIB_TILES
+%define ASMLIB_ISOMETRIC
 
 %include "asmlib/graphics/isometric/place_tile_on_screen.asm"
 
