@@ -16,5 +16,5 @@
 %include "asmlib/graphics/save_bg_buffer.asm"
 %include "asmlib/graphics/restore_bg_buffer.asm"
 %include "asmlib/graphics/sprites.asm"
-%include "asmlib/graphics/tiles.asm"
+%include "asmlib/graphics/isometric.asm"
 ;%include "asmlib/graphics/ascii.asm"
