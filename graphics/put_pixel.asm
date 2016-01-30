@@ -17,6 +17,20 @@ put_pixel:
     push rdx
     push rdi
     push rsi
+    
+    mov rax, qword [rdi+point.x]
+    cmp rax, 0
+    jl .skip
+    movzx rdx, word [VBEModeInfoBlock.XResolution]
+    cmp rax, rdx
+    jge .skip
+
+    mov rax, qword [rdi+point.y]
+    cmp rax, 0
+    jl .skip
+    movzx rdx, word [VBEModeInfoBlock.YResolution]
+    cmp rax, rdx
+    jge .skip
 
     call point_to_addr
 
@@ -27,6 +41,7 @@ put_pixel:
     mov byte [rax+1], cl
     mov byte [rax+2], dl
 
+.skip:
     pop rsi
     pop rdi
     pop rdx
