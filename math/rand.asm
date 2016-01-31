@@ -6,7 +6,6 @@ rnd_c: dq 0x10a813a1
 rnd_d: dq 0x89ec00cd
 
 gen_rnd:
-    push rax
     push rbx
     push rcx
     push rdx
@@ -37,7 +36,6 @@ gen_rnd:
     pop rdx
     pop rcx
     pop rbx
-    pop rax
     ret
     
 
