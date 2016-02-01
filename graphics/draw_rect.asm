@@ -1,13 +1,4 @@
 %define ASMLIB_DRAW_RECT
-
-%ifndef ASMLIB_GRAPHICS_DATA_TYPES
-    %include "asmlib/graphics/data_types.asm"
-%endif
-
-%ifndef ASMLIB_DRAW_HLINE
-    %include "asmlib/graphics/draw_hline.asm"
-%endif
-
 ; rdi: *struc point origin
 ; rsi: *struc color
 ; rdx: length
