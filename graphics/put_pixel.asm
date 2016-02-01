@@ -12,6 +12,8 @@
 ; rsi - *struct color
 put_pixel:
     push r8
+    push r9
+    push r10
     push rax
     push rcx
     push rdx
@@ -19,20 +21,28 @@ put_pixel:
     push rsi
     
     mov rax, qword [rdi+point.x]
+    mov r9, rax
     cmp rax, 0
     jl .skip
-    movzx rdx, word [VBEModeInfoBlock.XResolution]
-    cmp rax, rdx
+    cmp rax, SCREEN_RES_X
     jge .skip
 
     mov rax, qword [rdi+point.y]
+    mov r10, rax
     cmp rax, 0
     jl .skip
-    movzx rdx, word [VBEModeInfoBlock.YResolution]
-    cmp rax, rdx
+    cmp rax, SCREEN_RES_Y
     jge .skip
 
-    call point_to_addr
+;    call point_to_addr
+    mov rbx, SCREEN_RES_X ; rax = y * resx
+    mul rbx
+    add rax, r9
+    mov rbx, BYTES_PER_PIXEL
+    mul rbx
+    
+    mov ebx, dword [VBEModeInfoBlock.PhysBasePtr]
+    add rax, rbx
 
     mov r8b, byte [rsi+color.b]
     mov cl, byte [rsi+color.g]
@@ -47,5 +57,7 @@ put_pixel:
     pop rdx
     pop rcx
     pop rax
+    pop r10
+    pop r9
     pop r8
     ret
