@@ -7,8 +7,8 @@ place_tile_on_screen:
     push rdx
 
     mov r8, rdx
-    movzx rdx, word [rdi+0] ; tile width
-    movzx rcx, word [rdi+2] ; tile height
+    mov rdx, TILE_WIDTH / 2
+    mov rcx, TILE_HEIGHT
     add rdi, 4 ; start of tile data
     call sprite_draw
 
