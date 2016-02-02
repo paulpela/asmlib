@@ -1,4 +1,5 @@
 %include "asmlib/system/memcpy.asm"
+%include "asmlib/system/mkbuf.asm"
 %include "asmlib/system/create_gate.asm"
 %include "asmlib/system/reload_idt.asm"
 %include "asmlib/system/delay.asm"
