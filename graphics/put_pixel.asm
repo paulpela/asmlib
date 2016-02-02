@@ -14,6 +14,7 @@ put_pixel:
     push r8
     push r9
     push r10
+    push r12
     push rax
     push rcx
     push rdx
@@ -35,11 +36,17 @@ put_pixel:
     jge .skip
 
 ;    call point_to_addr
-    mov rbx, SCREEN_RES_X ; rax = y * resx
-    mul rbx
+;    mov rbx, SCREEN_RES_X ; rax = y * resx
+;    mul rbx
+    mov r12, rax ; quickly multiply by 640
+    shl rax, 9
+    shl r12, 7
+    add rax, r12
     add rax, r9
-    mov rbx, BYTES_PER_PIXEL
-    mul rbx
+    mov r9, rax
+    shl rax, 1
+    add rax, r9
+
     
     mov ebx, dword [VBEModeInfoBlock.PhysBasePtr]
     add rax, rbx
@@ -57,6 +64,7 @@ put_pixel:
     pop rdx
     pop rcx
     pop rax
+    pop r12
     pop r10
     pop r9
     pop r8
