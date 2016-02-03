@@ -8,19 +8,15 @@ clear_screen:
     push rdx
 
     mov rax, rdi
-    shl rax, 8
-    or rax, rdi
-    mov rdi, rax
-    shl rax, 16
-    or rax, rdi
-    mov rdi, rax
-    shl rax, 32
-    or rax, rdi
 
+    xor rdi, rdi
     mov edi, dword [VBEModeInfoBlock.PhysBasePtr]
 
-    mov rcx, (SCREEN_RES_X * SCREEN_RES_Y) / 8
-    rep stosq
+    mov rcx, SCREEN_RES_X * SCREEN_RES_Y
+.loop:
+    mov byte [rdi], al
+    inc rdi
+    loop .loop
 
     pop rdx
     pop rcx
