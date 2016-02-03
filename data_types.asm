@@ -1,9 +1,6 @@
-; Data types definitions
-%define ASMLIB_GRAPHICS_DATA_TYPES
-
 struc point
-    .x:         resq 1
-    .y:         resq 1
+    .x:         resd 1
+    .y:         resd 1
 endstruc
 
 struc color
@@ -13,4 +10,3 @@ struc color
     .b:         resb 1
 endstruc
 
-%include "asmlib/graphics/macros.asm"

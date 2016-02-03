@@ -1,5 +1,4 @@
 %include "asmlib/graphics/macros.asm"
-%include "asmlib/graphics/data_types.asm"
 %include "asmlib/graphics/get_bytes_per_pixel.asm"
 %include "asmlib/graphics/get_screen_size.asm"
 %include "asmlib/graphics/offset_to_addr.asm"

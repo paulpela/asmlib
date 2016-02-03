@@ -1,27 +1,34 @@
 %define ASMLIB_DRAW_RECT
-; rdi: *struc point origin
-; rsi: *struc color
-; rdx: length
-; rcx: height
+; rdi: origin x
+; rsi: origin y
+; rdx: color
+; rcx: length
+; r8: height
 draw_rect:
-    copy_point rdi, _rect_origin
-    mov rdi, _rect_origin
+    push rdi
+    push rsi
+    push rcx
+    push rdx
+    push r8
+
+    cmp rcx, 0
+    jle .skip
+
+    cmp r8, 0
+    jle .skip
 
 .draw_lines:
-    push rcx
-    mov rcx, rdx
     call draw_hline
-    inc qword [rdi+point.y]
-    push rax
-    mov rax, qword [_rect_origin+point.x]
-    mov qword [rdi+point.x], rax
-    pop rax
-    pop rcx
+    inc rsi
+    dec r8
+    cmp r8, 0
+    jle .skip
     loop .draw_lines
 
+.skip:
+    pop r8
+    pop rdx
+    pop rcx
+    pop rsi
+    pop rdi
     ret
-
-_rect_origin: istruc point
-    at point.x,     dq 0
-    at point.y,     dq 0
-iend

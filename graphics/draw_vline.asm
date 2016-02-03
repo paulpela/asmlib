@@ -1,36 +1,26 @@
 %define ASMLIB_DRAW_VLINE
 
-%ifndef ASMLIB_GRAPHICS_DATA_TYPES
-    %include "asmlib/graphics/data_types.asm"
-%endif
-
-; rdi: *struc point origin
-; rsi: *struc color
+; rdi: point origin x
+; rsi: point origin y
+; rdx: color
 ; rcx: length
 draw_vline:
     push rdi
     push rsi
     push rcx
+    push rdx
 
     cmp rcx, 0
     je .skip
 
-    copy_point rdi, _vline_origin
-
-    mov rdi, _vline_origin
 .draw:
     call put_pixel
-    inc qword [_vline_origin+point.y]
+    inc rsi
     loop .draw
 
 .skip:
+    pop rdx
     pop rcx
     pop rsi
     pop rdi
     ret
-    
-
-_vline_origin: istruc point
-    at point.x,     dq 0
-    at point.y,     dq 0
-iend

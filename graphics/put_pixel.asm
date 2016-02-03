@@ -1,71 +1,43 @@
 %define ASMLIB_PUT_PIXEL
 
-%ifndef ASMLIB_GRAPHICS_DATA_TYPES
-    %include "asmlib/graphics/data_types.asm"
-%endif
-
-%ifndef ASMLIB_POINT_TO_ADDR
-    %include "asmlib/graphics/point_to_addr.asm"
-%endif
-
-; rdi - *struct point
-; rsi - *struct color
+; rdi - point x
+; rsi - point y
+; rdx - color
 put_pixel:
     push r8
     push r9
-    push r10
     push r12
-    push rax
-    push rcx
     push rdx
     push rdi
     push rsi
     
-    mov rax, qword [rdi+point.x]
-    mov r9, rax
-    cmp rax, 0
+    mov r9, rdi
+    cmp rdi, 0
     jl .skip
-    cmp rax, SCREEN_RES_X
+    cmp rdi, SCREEN_RES_X
     jge .skip
 
-    mov rax, qword [rdi+point.y]
-    mov r10, rax
-    cmp rax, 0
+    cmp rsi, 0
     jl .skip
-    cmp rax, SCREEN_RES_Y
+    cmp rsi, SCREEN_RES_Y
     jge .skip
 
-;    call point_to_addr
-;    mov rbx, SCREEN_RES_X ; rax = y * resx
-;    mul rbx
-    mov r12, rax ; quickly multiply by 640
-    shl rax, 9
-    shl r12, 7
-    add rax, r12
-    add rax, r9
-    mov r9, rax
-    shl rax, 1
-    add rax, r9
-
+    mov r12, rsi
+    shl rsi, 10
+    shl r12, 8
+    add rsi, r12
+    add rsi, r9
     
     mov ebx, dword [VBEModeInfoBlock.PhysBasePtr]
-    add rax, rbx
+    add rsi, rbx
 
-    mov r8b, byte [rsi+color.b]
-    mov cl, byte [rsi+color.g]
-    mov dl, byte [rsi+color.r]
-    mov byte [rax], r8b
-    mov byte [rax+1], cl
-    mov byte [rax+2], dl
+    mov byte [rsi], dl
 
 .skip:
     pop rsi
     pop rdi
     pop rdx
-    pop rcx
-    pop rax
     pop r12
-    pop r10
     pop r9
     pop r8
     ret

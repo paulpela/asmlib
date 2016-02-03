@@ -1,46 +1,31 @@
 %define ASMLIB_CLEAR_SCREEN
 
-%ifndef ASMLIB_GRAPHICS_DATA_TYPES
-    %include "asmlib/graphics/data_types.asm"
-%endif
-
-%ifndef ASMLIB_GET_SCREEN_SIZE
-    %include "asmlib/graphics/get_screen_size.asm"
-%endif
-
-%ifndef ASMLIB_GET_BYTES_PER_PIXEL
-    %include "asmlib/graphics/get_bytes_per_pixel.asm"
-%endif
-
-; rdi: *struc pixel
+; rdi: color
 clear_screen:
+    push rax
     push rbx
     push rcx
     push rdx
 
-    call get_screen_size
-    mov rcx, rax
+    mov rax, rdi
+    shl rax, 8
+    or rax, rdi
+    mov rdi, rax
+    shl rax, 16
+    or rax, rdi
+    mov rdi, rax
+    shl rax, 32
+    or rax, rdi
 
-    call get_bytes_per_pixel
-    mov rdx, rax
+    mov edi, dword [VBEModeInfoBlock.PhysBasePtr]
 
-    xor rbx, rbx
-    mov ebx, dword [VBEModeInfoBlock.PhysBasePtr]
-
-.clear:
-    mov sil, byte [rdi+color.b]
-    mov byte [rbx], sil
-    mov sil, byte [rdi+color.g]
-    mov byte [rbx+1], sil
-    mov sil, byte [rdi+color.r]
-    mov byte [rbx+2], sil
-
-    add rbx, rdx
-    loop .clear
+    mov rcx, (SCREEN_RES_X * SCREEN_RES_Y) / 8
+    rep stosq
 
     pop rdx
     pop rcx
     pop rbx
+    pop rax
     ret
     
 
