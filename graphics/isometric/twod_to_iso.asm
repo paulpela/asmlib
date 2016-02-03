@@ -1,20 +1,26 @@
-; rdi: cartesian 2d point
+; rdi: cartesian 2d point x
+; rsi: cartesian 2d point y
 twod_to_iso:
-    mov rax, qword [rdi+point.x]
+    push rax
+    push rbx
+    push r8
+    push r9
+
+    mov rax, rdi
     mov r8, rax ; save for later
-    mov r9, qword [rdi+point.y]
+    mov r9, rsi
     sub rax, r9
-    mov qword [_2d_to_iso_point+point.x], rax
 
-    mov rax, r8
-    add rax, r9
-    shr rax, 1
-    mov qword [_2d_to_iso_point+point.y], rax
+    mov rbx, r8
+    add rbx, r9
+    shr rbx, 1
 
-    mov rax, _2d_to_iso_point
+    mov rdi, rax
+    mov rsi, rbx
+
+    pop r9
+    pop r8
+    pop rbx
+    pop rax
     ret
 
-_2d_to_iso_point: istruc point
-    at point.x,     dq      0
-    at point.y,     dq      0
-iend

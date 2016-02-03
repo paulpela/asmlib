@@ -1,17 +1,21 @@
-; rdi: tile.sprite addr
-; rsi: tile colormap
-; rdx: tile origin point on screen
+; rdi: point x
+; rsi: point y
+; r8: tile data
 place_tile_on_screen:
     push rdi
     push rsi
     push rdx
+    push rcx
+    push r8
 
     mov r8, rdx
-    mov rdx, TILE_WIDTH / 2
+    mov rdx, TILE_WIDTH
     mov rcx, TILE_HEIGHT
-    add rdi, 4 ; start of tile data
+    add r8, 4 ; start of tile data
     call sprite_draw
 
+    pop r8
+    pop rcx
     pop rdx
     pop rsi
     pop rdi

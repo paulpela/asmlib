@@ -1,21 +1,24 @@
-; rdi: iso point
+; rdi: point x
+; rsi: point y
 iso_to_2d:
-    mov rax, qword [rdi+point.y]
+    push r8
+    push rax
+    push rbx
+
+    mov rax, rsi
     shl rax, 1
     mov r8, rax ; save for later
-    add rax, qword [rdi+point.x]
+    add rax, rdi
     shr rax, 1
-    mov qword [_iso_to_2d_point+point.x], rax
 
-    mov rax, r8 ; restore from before
-    sub rax, qword [rdi+point.x]
-    shr rax, 1
-    mov qword [_iso_to_2d_point+point.y], rax
+    mov rbx, r8 ; restore from before
+    sub rbx, rdi
+    shr rbx, 1
 
-    mov rax, _iso_to_2d_point
+    mov rdi, rax
+    mov rsi, rbx
+
+    pop rbx
+    pop rax
+    pop r8
     ret
-    
-_iso_to_2d_point: istruc point
-    at point.x,     dq      0
-    at point.y,     dq      0
-iend

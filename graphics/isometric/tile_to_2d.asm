@@ -1,17 +1,7 @@
-; rdi: * tile struct
+; rdi: tile x
+; rsi: tile y
 tile_to_2d:
-    mov r8, qword [rdi+point.x]
-    shl r8, 4
-    mov r9, qword [rdi+point.y]
-    shl r9, 4
-
-    mov qword [_tile_to_2d+point.x], r8
-    mov qword [_tile_to_2d+point.y], r9
-
-    mov rax, _tile_to_2d
+    shl rdi, 4
+    shl rsi, 4
     ret
 
-_tile_to_2d: istruc point
-    at point.x, dq  0
-    at point.y, dq  0
-iend
